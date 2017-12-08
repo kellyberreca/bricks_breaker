@@ -1,6 +1,6 @@
 
 
-function BolaParede()
+function BolaParede(bolax,bolar,bolavelocidadex)
 	if (bolax-bolar<=0 and bolavelocidadex<0) or (bolax+bolar>=800 and bolavelocidadex>0) then
 		bolavelocidadex = bolavelocidadex*-1
 		love.audio.play(bolaparede)
@@ -8,7 +8,7 @@ function BolaParede()
 	return bolavelocidadex
 end
 
-function BolaTeto()
+function BolaTeto(bolay,bolar,bolavelocidade)
   if bolay-bolar<=0 and bolavelocidade<0 then
 		bolavelocidade = bolavelocidade*-1
 		love.audio.play(bolaparede)
@@ -16,7 +16,7 @@ function BolaTeto()
 	return bolavelocidade
 end
 
-function BolaJogador()
+function BolaJogador(bolay,bolax,bolar,bolavelocidade,bolavelocidadex)
   if bolay+bolar>=jogadory and bolay+bolar<=jogadory+jogadorh and bolavelocidade>0 then
     if (bolax+bolar==jogadorx or bolax-bolar==jogadorx+jogadorl) then 
       bolavelocidadex, bolavelocidade=velocidade*-0.87, velocidade*-0.5
@@ -46,7 +46,7 @@ function BolaJogador()
   end
   return bolavelocidade,bolavelocidadex
 end
-function BolaTijolo(i,j)
+function BolaTijolo(tijolo,i,j,ht,lt,bolax,bolay,bolar,bolavelocidadex,bolavelocidade,pontos)
   if (bolay-bolar<=j+ht and bolay+bolar>=j) and (bolax>=i and bolax<=i+lt) and bolavelocidade>0 then
     tijolo[i][j]=false
     love.audio.play(tijolosom)

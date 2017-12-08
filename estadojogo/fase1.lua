@@ -1,9 +1,10 @@
+
 function fase1_load()
 	--tijolos
 	lt = 50
 	ht = 15
-	tijolo = {}
-	for i=3,780,53 do
+	tijolo={}
+	for i=3,745,53 do
 		tijolo[i] = {}
 		for j = 27,117,18 do
 			tijolo[i] [j] = true
@@ -27,35 +28,55 @@ function fase1_load()
   menosvida = love.graphics.newImage('imagens/menosvida.png')
 	v=3
   
+  tempo1 = (os.time())%100
+  tempo2 = tempo1%10
+  
+  tempo3 = math.floor(tempo1/2)
+  tempo4 = math.floor(tempo2/2)
+  
   MaisVida = true
-  MaisVidax = 109
-  MaisViday = 81
+  if tempo1<=14 then
+    MaisVidax = 3+53*tempo1
+  else
+    MaisVidax = 3+53*(math.floor(tempo1/7))
+  end
+  
+  if tempo2<=5 then
+    MaisViday = 3+53*tempo2
+  else
+    MaisViday = 3+53*(math.floor(tempo2/2))
+  end
   
   MenosVida = true
-  MenosVidax = 745
-  MenosViday = 45
+  if tempo3<=14 then
+    MenosVidax = 3+53*tempo3
+  else
+    MenosVidax = 3+53*(math.floor(tempo3/4))
+  end
+    MenosViday = 3+53*tempo4
 end
 
 function fase1_update(dt)
 
   jogadorx = mover(dt)
-  bolavelocidade,bolavelocidadex = BolaJogador()
-	bolavelocidadex =  BolaParede()
-  bolavelocidade = BolaTeto()
+  bolavelocidade,bolavelocidadex = BolaJogador(bolay,bolax,bolar,bolavelocidade,bolavelocidadex)
+	bolavelocidadex =  BolaParede(bolax,bolar,bolavelocidadex)
+  bolavelocidade = BolaTeto(bolay,bolar,bolavelocidade)
 	if v>=0  and pontos<90 then
     --tijolo
-		for i=3,780,53 do
+		for i=3,745,53 do
 			for j = 27,117,18 do
         if tijolo[i][j]==true then
-          tijolo[i][j],bolavelocidade,bolavelocidadex,pontos =  BolaTijolo(i,j)
+          tijolo[i][j],bolavelocidade,bolavelocidadex,pontos =  BolaTijolo(tijolo,i,j,ht,lt,bolax,bolay,bolar,bolavelocidadex,bolavelocidade,pontos)
         end
 			end
 		end
     --bola
-    bolay,bolax = BolaVelocidade(dt)
+    bolay,bolax = BolaVelocidade(dt,bolax,bolay,bolavelocidadex,bolavelocidade,pontos)
     --vida
+    
     if MaisVida == true and tijolo[MaisVidax][MaisViday]==false and pontos>30 then
-      if BolaPoder(bolax,bolay,MaisVidax,MaisViday) then
+      if BolaPoder(bolax,bolay,MaisVidax+18.5,MaisViday) then
         if v==3 then 
           v = 3
         else 
@@ -66,7 +87,7 @@ function fase1_update(dt)
     end
     
     if MenosVida == true and tijolo[MenosVidax][MenosViday]==false and pontos>50 then
-      if BolaPoder(bolax,bolay,MenosVidax,MenosViday) then
+      if BolaPoder(bolax,bolay,MenosVidax+18.5,MenosViday) then
         v = v-1
         MenosVida = false
       end
@@ -109,14 +130,14 @@ function fase1_draw()
 		love.graphics.draw(vida,110,5)
 	end
   if MaisVida == true and tijolo[MaisVidax][MaisViday]==false and pontos>30 then
-    love.graphics.draw(vida,127.5,81)
+    love.graphics.draw(vida,MaisVidax+18.5,MaisViday)
   end
   if MenosVida == true and tijolo[MenosVidax][MenosViday]==false and pontos>50 then
-    love.graphics.draw(menosvida,762,45)
+    love.graphics.draw(menosvida,MenosVidax+18.5,MenosViday)
   end
 
 	--desenhando os tijolos
-	for i=3,780,53 do
+	for i=3,745,53 do
 		for j = 27,117,18 do
 			if j<=45 then
 				r,g,b = 125,0,0

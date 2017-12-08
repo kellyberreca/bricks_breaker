@@ -46,7 +46,7 @@ function pontos_draw()
 	
   love.graphics.setColor(255,255,255)
   love.graphics.setFont(fonte1)
-  love.graphics.print('PONG',328,100)
+  love.graphics.print('BRICK',313,100)
   love.graphics.setFont(fonte2)
   love.graphics.print('TOTAL DE PONTOS:',186,200)
   love.graphics.print(pontos,595,200)

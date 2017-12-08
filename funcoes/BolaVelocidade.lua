@@ -1,4 +1,4 @@
-function BolaVelocidade(dt)
+function BolaVelocidade(dt,bolax,bolay,bolavelocidadex,bolavelocidade,pontos)
   if pontos >= 80 then
     bolay ,bolax= (bolay+2.5*bolavelocidade*dt),(bolax+2.5*bolavelocidadex*dt)
   elseif pontos>=50 then

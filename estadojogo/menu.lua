@@ -29,7 +29,7 @@ function menu_update(dt)
 end
 function menu_draw()
   
-  for i=3,780,53 do
+  for i=3,745,53 do
 		for j = 27,117,18 do
 			if j<=45 then
 				r,g,b = 31,0,0
@@ -49,7 +49,7 @@ function menu_draw()
 	
   love.graphics.setColor(255,255,255)
   love.graphics.setFont(fonte1)
-  love.graphics.print('PONG',328,100)
+  love.graphics.print('BRICK',313,100)
   love.graphics.setFont(fonte2)
   love.graphics.print('JOGAR',jogarx,jogary)
   love.graphics.print('INSTRUÇÕES',instrucoesx,instrucoesy)
