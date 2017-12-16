@@ -12,18 +12,19 @@ function instrucoes_load()
 	vida2 = love.graphics.newImage('imagens/001.png')
 end
 function instrucoes_update(dt)
-	if love.mouse.isDown(1) then
-		x = love.mouse.getX( )
-		y = love.mouse.getY( )
-		if toqueretangulo(x, y, jogarx, jogary-5,jogarl,jogarh ) then
-			estadojogo='fase1'
-			return fase1_load()
-		elseif toqueretangulo(x, y, menux, menuy-5,menul,menuh ) then
-			estadojogo = 'menu'
-			menu_load()
+
+	function love.mousepressed( x, y, botao )
+		if botao==1 and estadojogo == 'instrucoes' then
+			if toqueretangulo(x, y, jogarx, jogary-5,jogarl,jogarh ) then
+				estadojogo='fase1'
+				return fase1_load()
+			elseif toqueretangulo(x, y, menux, menuy-5,menul,menuh ) then
+				estadojogo = 'menu'
+				menu_load()
+			end
 		end
 	end
-	  
+
 end
 function instrucoes_draw()
 
